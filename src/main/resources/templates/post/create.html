@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <link href="/static/css/post/post_create.css" th:href="@{/css/post/post_create.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header class="header">
+    <div class="header_nav_bar">
+        <div class="logo">팬카페 로고</div>
+        <ul class="nav_bar_list">
+            <li th:if="${isAuthenticated} != null">
+                <a href="#" th:text="${memberName}">사용자 닉네임</a>
+            </li>
+            <li th:if="${isAuthenticated} == null">
+                <a href="#">로그인</a>
+            </li>
+            <li th:if="${isAuthenticated} != null">
+                <a href="#">로그아웃 버튼</a>
+            </li>
+            <li th:if="${isAuthenticated} == null">
+                <a href="#">회원 가입</a>
+            </li>
+        </ul>
+    </div>
+    <a id="front-img" href="#">
+        <img src="/static/images/cafe-title-img.png" alt="우주하다 공식 팬카페!">
+    </a>
+</header>
+<main class="container">
+    <div class="form_wrapper">
+    <form onSubmit={handleSubmit}>
+        <h4>
+            <input class="title_section" type="text" placeholder="제목을 입력하세요" />
+        </h4>
+
+        <textarea class="content_section" placeholder="내용을 입력하세요."></textarea>
+        <br />
+        <div class="button_container">
+        <button class="add_button">등록하기</button>
+        <button class="back_button"> 뒤로 가기 </button>
+        </div>
+        </form>
+    </div>
+</main>
+<footer>
+</footer>
+</body>
+</html>
