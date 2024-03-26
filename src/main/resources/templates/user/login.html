@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="/static/css/user/login.css" th:href="@{/css/user/login.css}" rel="stylesheet"
+        type="text/css"/>
+</head>
+<body>
+<!--url-->
+<form id="login-form" action="">
+  <h2>로그인</h2>
+  <div class="form-group">
+    <label for="email">이메일</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+  <div class="form-group">
+    <label for="password">비밀번호</label>
+    <input type="password" id="password" name="password" required>
+  </div>
+  <button type="submit">로그인</button>
+  <!--  url-->
+  <p>회원 가입은 <a class="link_signup" th="#">여기</a>에서 할 수 있습니다.</p>
+</form>
+
+<!--<script src="/js/user/login.js"></script>-->
+</body>
+</html>
