@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Title</title>
+  <link href="/static/css/index.css" th:href="@{/css/index.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header class="header">
+  <div class="header_nav_bar">
+    <div class="logo">팬카페 로고</div>
+    <ul class="nav_bar_list">
+      <li th:if="${isAuthenticated} != null">
+        <a href="#" th:text="${memberName}">사용자 닉네임</a>
+      </li>
+      <li th:if="${isAuthenticated} == null">
+        <a href="#">로그인</a>
+      </li>
+      <li th:if="${isAuthenticated} != null">
+        <a href="#">로그아웃 버튼</a>
+      </li>
+      <li th:if="${isAuthenticated} == null">
+        <a href="#">회원 가입</a>
+      </li>
+    </ul>
+  </div>
+  <a id="front-img" href="#">
+    <img src="/static/images/cafe-title-img.png" alt="우주하다 공식 팬카페!">
+  </a>
+</header>
+<main class="content_area">
+  <aside class="cafe_sidebar">
+    <div id="cafe-profile-image">
+      <img src="/static/images/cafe-profile.png" alt="사진">
+    </div>
+    <div class="cafe_name">team9 공식 팬카페</div>
+    <div class="cafe_info_list">
+      <ul>
+        <li th:text="${totalMemberCount}">회원 수 : 데이터 받아오기</li>
+        <li></li>
+      </ul>
+    </div>
+    <!--    비회원이라면 카페 가입하기 버튼 노출-->
+    <div th:if="${isAuthenticated} == null" class="cafe_signup_btn">
+      <a href="#">카페 가입하기</a>
+    </div>
+    <div th:if="${isAuthenticated} != null" class="cafe_write_btn">
+      <a href="#">카페 글쓰기</a>
+    </div>
+    <!--     검색창,url-->
+    <form class="search_form" action="">
+      <label for="search_post"></label>
+      <input id="search_post" class="search_input" type="text" placeholder="제목 검색하기" name="keyword">
+      <button onclick="" type="button" class="search_btn">검색</button>
+    </form>
+    <div class="sidebar_bar">
+      게시판 종류
+    </div>
+    <ul class="board_list">
+      <!--      url-->
+      <li><a href="#">전체글보기</a></li>
+      <li><a href="#">자유게시판</a></li>
+      <li><a href="#">등업 신청 게시판</a></li>
+      <li><a href="#">From team9</a></li>
+      <li><a href="#">관리자 페이지</a></li>
+    </ul>
+    <div class="sidebar_bar_top"></div>
+    <!--    url-->
+    <div th:if="${isAuthenticated} != null" class="cafe_exit">
+      <a href="#">카페 탈퇴하기</a>
+    </div>
+  </aside>
+  <div class="board_content">
+    <div class="board_content_header">
+      <!--      url-->
+      <h3><a href="#">전체글보기</a></h3>
+    </div>
+    <table>
+      <colgroup>
+        <col style="width: 40%;">
+        <col style="width: 20%;">
+        <col style="width: 20%;">
+        <col style="width: 10%;">
+        <col style="width: 10%;">
+      </colgroup>
+      <tbody>
+      <tr th:each="post : ${posts}">
+        <!--        url-->
+        <td><a href="#" th:text="${post.title}">게시글 제목</a></td>
+        <td th:text="${post.userName}">작성자</td>
+        <td th:text="${#dates.format(post.createdAt, 'yyyy/MM/dd')}">작성일</td>
+        <td th:text="${post.likeCount}">추천수</td>
+        <td th:text="${post.viewCount}">조회수</td>
+      </tr>
+      </tbody>
+    </table>
+    <!--    url-->
+    <div class="paging">
+      <ul class="page_list" th:unless="${posts.isEmpty()}">
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{/quiz(page = ${startIdx - 1})}" th:text="startIdx">처음</a>
+        </li>
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{/quiz(page = ${startIdx - 1})}"><<</a>
+        </li>
+        <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+            th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+          <a th:href="@{/quiz(page = ${page})}" th:text="${page}"></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{/quiz(page = ${endIdx + 1})}">>></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{/quiz(page = ${totalPages})}">마지막</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+<footer>
+  <div class="footer_nav_bar">
+    <div class="logo">팬카페 로고</div>
+    <ul class="nav_bar_list">
+      <li>
+        <a href="#">어떤걸넣어야할까</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+</body>
+</html>
