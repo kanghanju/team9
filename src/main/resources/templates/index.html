@@ -50,7 +50,7 @@
     <div th:if="${isAuthenticated} != null" class="cafe_write_btn">
       <a href="#">카페 글쓰기</a>
     </div>
-    
+
     <div class="sidebar_bar">
       게시판 종류
     </div>
@@ -60,7 +60,8 @@
       <li><a href="#">자유게시판</a></li>
       <li><a href="#">등업 신청 게시판</a></li>
       <li><a href="#">From team9</a></li>
-      <li><a href="#">관리자 페이지</a></li>
+      <!--      admin등급이 접속했을때만 관리자 페이지가 보인다-->
+      <li th:if="${member.grade} == 'ADMIN'"><a href="#">관리자 페이지</a></li>
     </ul>
     <div class="sidebar_bar_top"></div>
     <!--    url-->

@@ -1,4 +1,4 @@
-function openTab(evt, tabName) {
+async function openTab(evt, tabName) {
   // 모든 탭 콘텐츠를 숨깁니다
   let tabContent = document.getElementsByClassName("tab_content");
   for (let i = 0; i < tabContent.length; i++) {
@@ -14,6 +14,11 @@ function openTab(evt, tabName) {
   // 클릭된 탭을 활성화하고 탭 콘텐츠를 보여줍니다
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active";
+
+  //전체 회원 탭이 클릭되면 서버로부터 데이터를 가져와야 합니다 !
+  if (tabName === 'AllMembers') {
+    
+  }
 }
 
 // 기본적으로 첫 번째 탭을 엽니다 (전체 회원 탭)
