@@ -15,10 +15,12 @@ public class CommentLike {
     @Column(name = "commentlike_id", nullable = false)
     private Long commentLikeId;
 
+    /* commentLike <-> member N:1 단방향 */
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
+    /* commentLike <-> comment N:1 단방향 */
     @ManyToOne
     @JoinColumn(name = "comment_id")
     private Comment comment;

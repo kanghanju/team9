@@ -18,16 +18,17 @@ public class Board {
     @Column(name = "board_name", nullable = false)
     private String boardName;
 
-    @Column(name = "wrtie_grade")
-    private String writeGrade;
+    @Column(name = "board_wrtie_grade", nullable = false)
+    private String boardWriteGrade;
 
-    @Column(name = "read_grade")
-    private String readGrade;
+    @Column(name = "board_read_grade", nullable = false)
+    private String boardReadGrade;
 
-    @Column(name = "board_sort")
+    @Column(name = "board_sort", nullable = false)
     private int boardSort;
 
-    @OneToMany(mappedBy = "board")
-    private List<Post> posts;
+//    /* post <-> board N:1 양방향 처리 시 사용 */
+//    @OneToMany(mappedBy = "board")
+//    private List<Post> posts;
 
 }
