@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class Team9ApplicationTests {
 
+    // 브랜치 테스트 주석 추가
     @Test
     void contextLoads() {
     }
