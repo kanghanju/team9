@@ -36,101 +36,93 @@ header {
   /*height: ;*/
 }
 
-/*main*/
-.content_area {
-  display: flex;
-  flex: 1;
+/*profile-area*/
+.go_main_link {
+  display: inline-block;
+  font-size: 16px;
+  margin: 0 0 50px 18px;
+  padding: 10px 20px;
+  background-color: #96c99a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-
-/*cafe sidebar*/
-.cafe_sidebar {
-  flex: 0 0 200px; /* 사이드바의 너비를 200px로 고정 */
-  padding: 20px;
-  background-color: #f0f0f0; /* 예시 배경색 */
+.go_main_link:hover {
+  text-decoration: underline;
 }
 
-#cafe-profile-image img {
-  width: 100%; /* 이미지를 사이드바 너비에 맞게 조절 */
-  max-width: 180px; /* 이미지 최대 너비 제한 */
-  height: auto;
-  display: block;
-  margin: 0 auto; /* 중앙 정렬 */
+.member_profile {
+  padding-left: 18px;
 }
 
-.cafe_name {
-  font-weight: bold;
-  margin: 10px 0;
+.member_profile_photo {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  float: left;
+  margin-right: 17px;
 }
 
-.cafe_info_list {
-  margin-top: 10px;
-  margin-bottom: 30px;
+.member_nickname {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  margin-bottom: 10px;
 }
 
-/*가입하기,글쓰기 button*/
-.cafe_signup_btn, .cafe_write_btn {
-  display: block;
-  height: 38px;
-  margin-bottom: 9px;
+.member_grade {
+  font-weight: normal;
   font-size: 13px;
-  text-align: center;
-  color: #fff;
-  border-radius: 6px;
-  background-color: #5a5a5a;
-  font-weight: bold;
-  line-height: 38px;
 }
 
-.cafe_signup_btn:hover, .cafe_write_btn:hover {
-  text-decoration: underline; /* 링크 호버 시 밑줄 추가 */
+.member_created_at {
+  margin-right: 10px;
 }
 
-/*sidebar_bar*/
-.sidebar_bar {
-  border-top: 2px solid;
-  border-top-color: #333333;
-  border-bottom: 1px solid;
-  border-bottom-color: #e5e5e5;
-  color: #000000;
-  font-weight: bold;
-  padding: 12px 11px 9px;
+.member_detail_info {
+  margin-top: 10px;
 }
 
-/*board list*/
-.board_list li {
-  margin-bottom: 5px;
+.gray_color {
+  color: #999999;
+  margin-right: 17px;
 }
 
-.board_list li a {
-  text-decoration: none;
-  color: #000; /* 링크 색상 */
-  display: block;
-  padding: 12px 11px 9px;
-}
-
-.board_list li a:hover {
+.gray_color span {
+  color: black;
   font-weight: bold;
 }
 
-/*cafe exit*/
-.sidebar_bar_top {
-  border-top: 2px solid;
-  border-top-color: #333333;
+/*my-board-list*/
+.my_board_list {
+  padding: 29px 0 18px;
 }
 
-.cafe_exit {
-  padding: 16px 12px;
-  background-color: #afafaf;
+.sort_area {
+  float: left;
+  width: 100%;
 }
+
+.link_sort {
+  margin-left: 18px;
+}
+
+.link_sort:hover {
+  font-weight: bold;
+}
+
+.link_sort.selected {
+  color: green;
+}
+
 
 /*board content*/
-.board_content_header a {
-  padding: 10px;
-}
 
 .board_content table {
-  border-top: 1px solid #f6f5f5;
+  margin-top: 30px;
+  border-top: 1px solid black;
   border-bottom: 1px solid #f6f5f5;
   width: 100%; /* 테이블 너비를 부모 요소에 맞춤 */
   border-collapse: collapse; /* 테두리 간격 없앰 */
@@ -139,7 +131,7 @@ header {
 }
 
 .board_content th, .board_content td {
-  padding: 10px; /* 셀 내부 여백 */
+  padding: 18px; /* 셀 내부 여백 */
 }
 
 .board_content th {
@@ -200,3 +192,5 @@ footer {
   display: flex;
   justify-content: space-between;
 }
+
+

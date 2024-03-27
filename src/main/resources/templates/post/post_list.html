@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Title</title>
+    <link href="/static/css/post/post_list.css" th:href="@{/css/post/post_list.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header class="header">
+    <div class="header_nav_bar">
+        <div class="logo">팬카페 로고</div>
+        <ul class="nav_bar_list">
+            <li th:if="${isAuthenticated} != null">
+                <a href="#" th:text="${memberName}">사용자 닉네임</a>
+            </li>
+            <li th:if="${isAuthenticated} == null">
+                <a href="#">로그인</a>
+            </li>
+            <li th:if="${isAuthenticated} != null">
+                <a href="#">로그아웃 버튼</a>
+            </li>
+            <li th:if="${isAuthenticated} == null">
+                <a href="#">회원 가입</a>
+            </li>
+        </ul>
+    </div>
+    <a id="front-img" href="#">
+        <img src="/static/images/cafe-title-img.png" alt="우주하다 공식 팬카페!">
+    </a>
+</header>
+<main class="container">
+<div class="container my-3">
+    <div class="top_section">
+        <a href="/post/create">
+            <button class="register_btn">질문글 등록하기</button>
+        </a>
+        <input class="search_section" type="text" placeholder="검색어를 입력하세요" >
+        <button class="search_btn">검색</button>
+    </div>
+    <div class="board_container">
+    <h3 class="board_title">게시판</h3>
+    <table class="post_table">
+        <thead>
+            <th>게시글 제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>추천 수</th>
+            <th>조회 수</th>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${posts}">
+            <!--url-->
+            <td><a href="#" th:text="${post.title}">게시글 제목</a></td>
+            <td th:text="${post.userName}">작성자</td>
+            <td th:text="${#dates.format(post.createdAt, 'yyyy/MM/dd')}">작성일</td>
+            <td th:text="${post.likeCount}">추천수</td>
+            <td th:text="${post.viewCount}">조회수</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        <button class="page_btn">이전</button>
+        <!-- 페이지 버튼 반복 -->
+        <button class="page_btn active">1</button>
+        <!-- 반복 종료 -->
+        <button class="page_btn">다음</button>
+    </div>
+    </div>
+</div>
+</main>
+<footer>
+
+</footer>
+
+</body>
+<script>
+    // 게시물 더미 데이터를 생성하는 함수
+    function createDummyPosts(num) {
+        const posts = [];
+        for (let i = 1; i <= num; i++) {
+            posts.push({
+                id: i,
+                title: `게시글 제목 ${i}`,
+                userName: `작성자${i}`,
+                createdAt: new Date().toISOString().slice(0, 10), // YYYY-MM-DD 형식
+                likeCount: Math.floor(Math.random() * 100), // 0에서 99 사이의 추천수
+                viewCount: Math.floor(Math.random() * 1000) // 0에서 999 사이의 조회수
+            });
+        }
+        return posts;
+    }
+
+    // 더미 데이터 생성
+    const posts = createDummyPosts(100); // 100개의 더미 게시물 생성
+
+    let currentPage = 1; // 현재 페이지 번호
+    const postsPerPage = 10; // 페이지 당 게시물 수
+
+    // 특정 페이지의 게시물을 표시하는 함수
+    function displayPostsOnPage(pageNumber) {
+        const startIndex = (pageNumber - 1) * postsPerPage;
+        const endIndex = startIndex + postsPerPage;
+        const postsToDisplay = posts.slice(startIndex, endIndex);
+
+        displayPosts(postsToDisplay); // 이전에 정의한 displayPosts 함수 사용
+    }
+
+    // 페이지네이션 컨트롤을 초기화하는 함수
+    function setupPagination(totalPosts, postsPerPage) {
+        const pageCount = Math.ceil(totalPosts / postsPerPage);
+        const paginationContainer = document.querySelector('.pagination_container');
+        paginationContainer.innerHTML = ''; // 기존 페이지네이션 버튼 제거
+
+        for (let i = 1; i <= pageCount; i++) {
+            const button = document.createElement('button');
+            button.innerText = i;
+            button.addEventListener('click', function() {
+                currentPage = i;
+                displayPostsOnPage(currentPage);
+            });
+            paginationContainer.appendChild(button);
+        }
+    }
+    function displayPosts(postsToDisplay) {
+        const postTableBody = document.querySelector('.post_table tbody');
+        postTableBody.innerHTML = ''; // 기존 게시물을 지우고 새로운 게시물로 대체
+
+        postsToDisplay.forEach(post => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td><a href="#">${post.title}</a></td>
+            <td>${post.userName}</td>
+            <td>${post.createdAt}</td>
+            <td>${post.likeCount}</td>
+            <td>${post.viewCount}</td>
+        `;
+            postTableBody.appendChild(row);
+        });
+    }
+
+    const paginationContainer = document.querySelector('.pagination');
+
+    // 초기 페이지 로드 시 첫 페이지의 게시물과 페이지네이션 컨트롤 표시
+    displayPostsOnPage(currentPage);
+    setupPagination(posts.length, postsPerPage);
+</script>
+</html>
