@@ -21,15 +21,19 @@ public class Comment {
     @Column(name = "comment_content", columnDefinition = "TEXT", nullable = false)
     private String commentContent;
 
+    /* comment <-> member N:1 단방향 */
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
+    /* comment <-> post N:1 단방향 */
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @OneToMany(mappedBy = "comment_id")
-    private List<CommentLike> commentLikes;
+//    // 주인이 되는 CommentLike 클래스에서 연관관계로 선언된 Comment 필드명(comment)을 mappedBy에 나타냄.
+//    /* commentLike <-> comment N:1 양방향 처리 시 사용 */
+//    @OneToMany(mappedBy = "comment")
+//    private List<CommentLike> commentLikes;
 
 }

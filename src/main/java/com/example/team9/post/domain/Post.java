@@ -34,37 +34,35 @@ public class Post {
 
     @CreatedDate
     @Column(name = "created_date", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
     @Column(name = "updated_date")
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedDate;
 
     // 조회수
-    @Column(name = "post_view", nullable = false, columnDefinition = "BIGINT default 0")
+    @Column(name = "post_view", nullable = false, columnDefinition = "Integer default 0")
     private Long postView;
 
-    // 사용자 매핑
+    @Column(name = "post_view_grade")
+    private String postViewGrade;
+
+    /* post <-> member N:1 단방향 */
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    // 게시판 매핑
+    /* board <-> post N:1 단방향 */
     @ManyToOne
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @OneToMany(mappedBy = "post")
-    private List<Comment> comments = new ArrayList<>();
+//    /* post <-> comment N:1 양방향 처리 시 사용 */
+//    @OneToMany(mappedBy = "post")
+//    private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
-    private List<PostLike> postLikes = new ArrayList<>();
+//    /* postLike <-> post N:1 양방향 처리 시 사용 */
+//    @OneToMany(mappedBy = "post")
+//    private List<PostLike> postLikes = new ArrayList<>();
 
-
-//    @Builder
-//    public Post(String title, String content, Long postView) {
-//        this.title = title;
-//        this.content = content;
-//        this.postView = postView;
-//    }
 }

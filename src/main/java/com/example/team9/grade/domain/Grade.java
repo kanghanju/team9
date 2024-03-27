@@ -17,7 +17,8 @@ public class Grade {
     @Column(name = "grade_name", nullable = false)
     private String gradeName;
 
-    @OneToOne(mappedBy = "grade")
-    private Member member;
+//    /* member <-> grade 1:1 양방향 처리할 때 사용하기 */
+//    @OneToOne(mappedBy = "grade")
+//    private Member member;
 
 }
