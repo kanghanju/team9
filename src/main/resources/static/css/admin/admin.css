@@ -36,24 +36,23 @@ header {
   /*height: ;*/
 }
 
-/*footer*/
-footer {
-  margin: 20px auto;
-  padding: 24px 20px 24px 20px;
-}
-
-.footer_nav_bar {
-  display: flex;
-  justify-content: space-between;
-}
 
 /*main*/
+.content_area_header {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
 /*search form*/
 .search_form {
   display: flex;
   align-items: center;
   position: relative;
-  width: 60%;
   border: 1px solid #dbdbdb;
   border-radius: 30px;
   background: #f6f6f6;
@@ -91,14 +90,14 @@ footer {
 /*member list tab*/
 .tab {
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
+  border-bottom: 1px solid #afafaf;
 }
 
 .tab button {
   background-color: inherit;
   float: left;
-  border: none;
+  border: 1px solid #afafaf;
+  border-bottom: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
@@ -109,7 +108,7 @@ footer {
 .tab_content {
   display: none;
   padding: 6px 12px;
-  border: 1px solid #ccc;
+  /*border: 1px solid #ccc;*/
   border-top: none;
 }
 
@@ -117,3 +116,74 @@ footer {
   background-color: #ccc;
 }
 
+
+/*셀렉트바*/
+.select_bar_area {
+  margin-bottom: 20px;
+}
+
+/*전체회원 리스트*/
+.all_member_list, .upgrade_request_members {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #afafaf;
+}
+
+.member_nickname, .member_grade {
+  flex: 0 0 20%; /* 닉네임과 회원등급의 너비를 각각 20%로 설정 */
+}
+
+.member_create_at {
+  flex: 0 0 20%; /* 생성날짜의 너비를 20%로 설정 */
+}
+
+.member_total_posts, .member_total_comments {
+  flex: 0 0 20%; /* 게시물수와 댓글수의 너비를 각각 10%로 설정 */
+}
+
+
+.page_list {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  gap: 10px;
+}
+
+.page_current, .page_link {
+  font-weight: bold;
+  /*border: 1px solid #dbdbdb;*/
+  /*border-radius: 10px;*/
+  color: #afafaf;
+  text-align: center;
+  cursor: pointer;
+}
+
+.page_link:hover {
+  /*background-color: #ece9e9;*/
+}
+
+.page_current {
+  color: #007bff;
+}
+
+.page_list a, .page_current a {
+  display: block;
+  /*padding: 1.0em;*/
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+}
+
+
+/*footer*/
+footer {
+  margin: 20px auto;
+  padding: 24px 20px 24px 20px;
+}
+
+.footer_nav_bar {
+  display: flex;
+  justify-content: space-between;
+}

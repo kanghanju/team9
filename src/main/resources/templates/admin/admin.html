@@ -30,17 +30,21 @@
   </div>
 </header>
 <main class="content_area">
-  <!--     검색창,url-->
-  <form class="form" action="#">
-    <div class="search_form">
+  <div class="content_area_header">
+    <h1>운영자</h1>
+    <!--     검색창,url-->
+    <form class="form" action="#">
+      <div class="search_form">
                 <span class="search_image">
                     <img src="/static/images/search.png" width="17px">
                 </span>
-      <label for="search"></label>
-      <input class="input" type="text" required="" placeholder="회원 검색하기" id="search"
-             name="keyword">
-    </div>
-  </form>
+        <label for="search"></label>
+        <input class="input" type="text" required="" placeholder="회원 검색하기" id="search"
+               name="keyword">
+      </div>
+    </form>
+  </div>
+
   <!--  member list tab-->
   <div class="tab">
     <button class="tab_links" onclick="openTab(event, 'AllMembers')">전체 회원</button>
@@ -52,43 +56,135 @@
     <h3>전체 회원</h3>
     <!--    url-->
     <form action="" method="post">
-      <select name="newGrade">
-        <option value="정회원">정회원</option>
-        <option value="운영진">운영진</option>
-        <option value="아티스트">아티스트</option>
-      </select>
-      <button type="submit">변경</button>
+      <div class="select_bar_area">
+        <select name="newGrade">
+          <option value="정회원">정회원</option>
+          <option value="운영진">운영진</option>
+          <option value="아티스트">아티스트</option>
+        </select>
+        <button type="submit">변경</button>
+      </div>
+
 
       <ul>
-        <li th:each="member : ${allMembers}">
-          <input type="checkbox" th:value="${member.id}" name="memberIds"/>
-          <span th:text="${member.nickname}">닉네임</span> |
-          <span th:text="${member.grade}">회원등급</span> |
-          <span th:text="${member.createAt}">생성날짜</span>
+        <li class="all_member_list" th:each="member : ${allMembers}">
+          <input type="checkbox" th:value="${member.id}" name="memberIds[]"/>
+          <span class="member_nickname" th:text="${member.nickname}">닉네임</span>
+          <span class="member_grade" th:text="${member.grade}">회원등급</span>
+          <span class="member_create_at" th:text="${member.createAt}">생성날짜</span>
+          <span class="member_total_posts" th:text="${member.createAt}">게시물수</span>
+          <span class="member_total_comments" th:text="${member.createAt}">댓글수</span>
+        </li>
+        <!--        더미데이터-->
+        <li class="all_member_list" th:each="member : ${allMembers}">
+          <input type="checkbox" th:value="${member.id}" name="memberIds[]"/>
+          <span class="member_nickname" th:text="${member.nickname}">닉네임</span>
+          <span class="member_grade" th:text="${member.grade}">회원등급</span>
+          <span class="member_create_at" th:text="${member.createAt}">생성날짜</span>
+          <span class="member_total_posts" th:text="${member.createAt}">게시물수</span>
+          <span class="member_total_comments" th:text="${member.createAt}">댓글수</span>
+        </li>
+        <li class="all_member_list" th:each="member : ${allMembers}">
+          <input type="checkbox" th:value="${member.id}" name="memberIds[]"/>
+          <span class="member_nickname" th:text="${member.nickname}">닉네임</span>
+          <span class="member_grade" th:text="${member.grade}">회원등급</span>
+          <span class="member_create_at" th:text="${member.createAt}">생성날짜</span>
+          <span class="member_total_posts" th:text="${member.createAt}">게시물수</span>
+          <span class="member_total_comments" th:text="${member.createAt}">댓글수</span>
+        </li>
+        <li class="all_member_list" th:each="member : ${allMembers}">
+          <input type="checkbox" th:value="${member.id}" name="memberIds[]"/>
+          <span class="member_nickname" th:text="${member.nickname}">닉네임</span>
+          <span class="member_grade" th:text="${member.grade}">회원등급</span>
+          <span class="member_create_at" th:text="${member.createAt}">생성날짜</span>
+          <span class="member_total_posts" th:text="${member.createAt}">게시물수</span>
+          <span class="member_total_comments" th:text="${member.createAt}">댓글수</span>
         </li>
       </ul>
     </form>
+    <div class="paging">
+      <ul class="page_list" th:unless="${posts.isEmpty()}">
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{/quiz(page = ${startIdx - 1})}" th:text="startIdx">처음</a>
+        </li>
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{/quiz(page = ${startIdx - 1})}"><<</a>
+        </li>
+        <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+            th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+          <a th:href="@{/quiz(page = ${page})}" th:text="${page}"></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{/quiz(page = ${endIdx + 1})}">>></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{/quiz(page = ${totalPages})}">마지막</a>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <!-- 등업 신청 탭 콘텐츠 -->
   <div id="UpgradeRequests" class="tab_content">
-    <h3>등업 신청</h3>
+    <h3>등업 신청 회원</h3>
     <!--    url-->
     <form action="" method="post">
-      <select name="newGrade">
-        <option value="정회원">정회원</option>
-      </select>
-      <button type="submit">변경</button>
+
+      <div class="select_bar_area">
+        <select name="newGrade">
+          <option value="정회원">정회원</option>
+        </select>
+        <button type="submit">변경</button>
+      </div>
 
       <ul>
-        <li th:each="request : ${upgradeRequests}">
-          <input type="checkbox" th:value="${request.member.id}" name="memberIds"/>
-          <span th:text="${request.member.nickname}">닉네임</span> |
-          <span th:text="${request.member.grade}">회원등급</span> |
-          <span th:text="${request.member.createAt}">생성날짜</span>
+        <li class="upgrade_request_members" th:each="request : ${upgradeRequests}">
+          <input type="checkbox" th:value="${request.member.id}" name="memberIds[]"/>
+          <span class="member_nickname" th:text="${request.member.nickname}">닉네임</span>
+          <span class="member_grade" th:text="${request.member.grade}">회원등급</span>
+          <span class="member_create_at" th:text="${request.member.createAt}">생성날짜</span>
+        </li>
+        <!--        더미데이터-->
+        <li class="upgrade_request_members" th:each="request : ${upgradeRequests}">
+          <input type="checkbox" th:value="${request.member.id}" name="memberIds[]"/>
+          <span class="member_nickname" th:text="${request.member.nickname}">닉네임</span>
+          <span class="member_grade" th:text="${request.member.grade}">회원등급</span>
+          <span class="member_create_at" th:text="${request.member.createAt}">생성날짜</span>
+        </li>
+        <li class="upgrade_request_members" th:each="request : ${upgradeRequests}">
+          <input type="checkbox" th:value="${request.member.id}" name="memberIds[]"/>
+          <span class="member_nickname" th:text="${request.member.nickname}">닉네임</span>
+          <span class="member_grade" th:text="${request.member.grade}">회원등급</span>
+          <span class="member_create_at" th:text="${request.member.createAt}">생성날짜</span>
+        </li>
+        <li class="upgrade_request_members" th:each="request : ${upgradeRequests}">
+          <input type="checkbox" th:value="${request.member.id}" name="memberIds[]"/>
+          <span class="member_nickname" th:text="${request.member.nickname}">닉네임</span>
+          <span class="member_grade" th:text="${request.member.grade}">회원등급</span>
+          <span class="member_create_at" th:text="${request.member.createAt}">생성날짜</span>
         </li>
       </ul>
     </form>
+    <div class="paging">
+      <ul class="page_list" th:unless="${posts.isEmpty()}">
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{/quiz(page = ${startIdx - 1})}" th:text="startIdx">처음</a>
+        </li>
+        <li class="page_link" th:unless="${startIdx == 1}">
+          <a th:href="@{/quiz(page = ${startIdx - 1})}"><<</a>
+        </li>
+        <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+            th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+          <a th:href="@{/quiz(page = ${page})}" th:text="${page}"></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{/quiz(page = ${endIdx + 1})}">>></a>
+        </li>
+        <li class="page_link" th:unless="${endIdx == totalPages}">
+          <a th:href="@{/quiz(page = ${totalPages})}">마지막</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </main>
 <footer>
