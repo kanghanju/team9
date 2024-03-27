@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Title</title>
+  <link href="/static/css/user/mypage.css" th:href="@{/css/user/mypage.css}" rel="stylesheet"
+        type="text/css"/>
+</head>
+<body>
+<header class="header">
+  <div class="header_nav_bar">
+    <div class="logo">팬카페 로고</div>
+    <ul class="nav_bar_list">
+      <li th:if="${isAuthenticated} != null">
+        <a href="#" th:text="${memberName}">사용자 닉네임</a>
+      </li>
+      <li th:if="${isAuthenticated} == null">
+        <a href="#">로그인</a>
+      </li>
+      <li th:if="${isAuthenticated} != null">
+        <a href="#">로그아웃 버튼</a>
+      </li>
+      <li th:if="${isAuthenticated} == null">
+        <a href="#">회원 가입</a>
+      </li>
+    </ul>
+  </div>
+  <a id="front-img" href="#">
+    <img src="/static/images/cafe-title-img.png" alt="우주하다 공식 팬카페!">
+  </a>
+</header>
+<main class="member_profile_area">
+  <!--    url-->
+  <a href="#" class="go_main_link">메인 화면으로 이동</a>
+  <div class="member_profile">
+    <div class="member_info">
+      <div class="member_nickname" th:text="${memberNickName}">
+        닉네임
+        <span class="member_grade" th:text="${memberGrade}">준회원</span>
+      </div>
+      <span class="member_created_at" th:text="${memberCreatedAt}">회원이 가입한 날짜</span>
+      <span>가입</span>
+      <div class="member_detail_info">
+        <span class="gray_color">작성글
+          <span th:text="${totalWritePost}">9</span>
+        </span>
+        <span class="gray_color">작성댓글
+          <span th:text="${totalWriteComment}">9</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="my_board_list">
+    <div class="sort_area">
+      <!--      url-->
+      <a href="#" class="link_sort" data-page-type="posts"
+         th:classappend="${type == 'posts'} ? 'selected':''">작성글</a>
+      <a href="#" class="link_sort" data-page-type="comments"
+         th:classappend="${type == 'comments'} ? 'selected' : ''">작성댓글</a>
+      <!--      <a href="#" class="link_sort">좋아요한 글</a>-->
+    </div>
+  </div>
+  <div class="board_content">
+    <!--    내가 작성한 글을 표시한다 -->
+    <div th:if="${type == 'posts'}">
+      <table>
+        <colgroup>
+          <col style="width: 40%;">
+          <col style="width: 20%;">
+          <col style="width: 20%;">
+          <col style="width: 10%;">
+          <col style="width: 10%;">
+        </colgroup>
+        <tbody>
+        <tr th:each="post : ${posts}">
+          <!--        url-->
+          <td><a href="#" th:text="${post.title}">게시글 제목</a></td>
+          <td th:text="${post.userName}">작성자</td>
+          <td th:text="${#dates.format(post.createdAt, 'yyyy/MM/dd')}">작성일</td>
+          <td th:text="${post.likeCount}">추천수</td>
+          <td th:text="${post.viewCount}">조회수</td>
+        </tr>
+        </tbody>
+      </table>
+      <!--    url-->
+      <div class="paging">
+        <ul class="page_list" th:unless="${posts.isEmpty()}">
+          <li class="page_link" th:unless="${startIdx == 1}">
+            <a th:href="@{/quiz(page = ${startIdx - 1})}" th:text="startIdx">처음</a>
+          </li>
+          <li class="page_link" th:unless="${startIdx == 1}">
+            <a th:href="@{/quiz(page = ${startIdx - 1})}"><<</a>
+          </li>
+          <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+              th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+            <a th:href="@{/quiz(page = ${page})}" th:text="${page}"></a>
+          </li>
+          <li class="page_link" th:unless="${endIdx == totalPages}">
+            <a th:href="@{/quiz(page = ${endIdx + 1})}">>></a>
+          </li>
+          <li class="page_link" th:unless="${endIdx == totalPages}">
+            <a th:href="@{/quiz(page = ${totalPages})}">마지막</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--    내가 작성한 댓글을 표시한다-->
+    <div th:if="${type == 'comments'}">
+      <table>
+        <colgroup>
+          <col style="width: 50%;">
+          <col style="width: 20%;">
+          <col style="width: 30%;">
+        </colgroup>
+        <tbody>
+        <tr th:each="comment : ${comments}">
+          <!--        url-->
+          <td class="comment_detail_info">
+            <a href="#">
+              <div th:text="${comment.content}" class="comment_context">댓글 내용</div>
+              <div th:text="${#dates.format(comment.createdAt,'yyyy/MM/dd')}"
+                   class="comment_created_at">댓글 작성일
+              </div>
+              <div th:text="${comment.postTitle}">댓글을 단 게시글의 제목</div>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <!--    url-->
+      <div class="paging">
+        <ul class="page_list" th:unless="${comments.isEmpty()}">
+          <li class="page_link" th:unless="${startIdx == 1}">
+            <a th:href="@{/quiz(page = ${startIdx - 1})}" th:text="startIdx">처음</a>
+          </li>
+          <li class="page_link" th:unless="${startIdx == 1}">
+            <a th:href="@{/quiz(page = ${startIdx - 1})}"><<</a>
+          </li>
+          <li th:each="page : ${#numbers.sequence(startIdx, endIdx)}"
+              th:class="${page == currentPage} ? 'page_current' : 'page_link'">
+            <a th:href="@{/quiz(page = ${page})}" th:text="${page}"></a>
+          </li>
+          <li class="page_link" th:unless="${endIdx == totalPages}">
+            <a th:href="@{/quiz(page = ${endIdx + 1})}">>></a>
+          </li>
+          <li class="page_link" th:unless="${endIdx == totalPages}">
+            <a th:href="@{/quiz(page = ${totalPages})}">마지막</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</main>
+<footer>
+  <div class="footer_nav_bar">
+    <div class="logo">팬카페 로고</div>
+    <ul class="nav_bar_list">
+      <li>
+        <a href="#">어떤걸넣어야할까</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+<!--<script src="/static/js/user/mypage.js"></script>-->
+</body>
+</html>
