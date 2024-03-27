@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Title</title>
+  <link href="/static/css/post/post_detail.css" th:href="@{/css/post/post_detail.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header class="header">
+  <div class="header_nav_bar">
+    <div class="logo">팬카페 로고</div>
+    <ul class="nav_bar_list">
+      <li th:if="${isAuthenticated} != null">
+        <a href="#" th:text="${memberName}">사용자 닉네임</a>
+      </li>
+      <li th:if="${isAuthenticated} == null">
+        <a href="#">로그인</a>
+      </li>
+      <li th:if="${isAuthenticated} != null">
+        <a href="#">로그아웃 버튼</a>
+      </li>
+      <li th:if="${isAuthenticated} == null">
+        <a href="#">회원 가입</a>
+      </li>
+    </ul>
+  </div>
+  <a id="front-img" href="#">
+    <img src="/static/images/cafe-title-img.png" alt="우주하다 공식 팬카페!">
+  </a>
+</header>
+<main class="container">
+  <div>
+    <div class="post_header">
+      <div>
+        <h3>게시물 제목</h3>
+        <div class="post_info">
+          <span>작성자 : 사용자명 &nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span>작성일자: 2024-03-01 12:00</span>
+        </div>
+      </div>
+      <span class="post_button_group">
+        <button class="modify_button">수정</button>
+        <button class="delete_button">삭제</button>
+      </span>
+
+    </div>
+    <hr />
+    <div>
+      <p>게시물 내용 예시입니다. 이후 수정 예정입니다.</p>
+      <div class="center">
+        <button class="like_button">추천 10</button>
+      </div>
+    </div>
+    <hr />
+    <!-- 댓글 예시 -->
+    <h4>댓글 (1)</h4>
+    <div class="comment">
+      <div class="comment_container">
+
+          <div class="comment_body">
+            <p>댓글 내용 예시입니다. 이후 수정 예정입니다.</p>
+            <div class="comment_info">
+              <span>작성자: 사용자명&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span>작성일자: 2024-03-01 13:00&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </div>
+          </div>
+          <div class="comment_button_group">
+            <button class="like_button">👍</button>
+            <button class="modify_button">수정</button>
+            <button class="delete_button">삭제</button>
+          </div>
+        </div>
+    </div>
+    <hr />
+    <!-- 댓글 입력 폼 -->
+    <form class="comment_form">
+      <div class="comment_input_container">
+      <input class="comment_section" type="text" placeholder="댓글을 입력하세요" />
+      <button type="submit" class="add_button">댓글 등록</button>
+      </div>
+    </form>
+    <div class="button_container">
+      <button class="back_button"> 뒤로 가기 </button>
+    </div>
+  </div>
+</main>
+</body>
+</html>
